@@ -1,6 +1,7 @@
 
 #include "game.h"
 #include "string.h"
+
 void startGame();
 
 void menu();
@@ -9,7 +10,7 @@ void gameStart();
 
 void pointer();
 
-int my_strlen(char* str) {
+int my_strlen(char *str) {
     // 如果当前字符是结束符 '\0'，则返回0
     if (*str == '\0') {
         return 0;
@@ -28,12 +29,55 @@ struct Book {
 
 int main() {
 
+    int numbers[10] = {0};
+    int size = sizeof(numbers) / sizeof(numbers[0]);
+
+    printf("请一次性输入%d个数字（以空格分隔）: ", size);
+
+    for (int i = 0; i < size; ++i) {
+        scanf("%d", &numbers[i]);
+    }
+
+
+//    调整数组顺序
+    int *start = numbers;
+
+    int *end = &numbers[size - 1];
+
+    while (start < end) {
+
+        while ((start < end) && ( *start % 2 == 0)) {
+            start++;
+        }
+
+        while ((start < end) && (*end % 2 == 1)) {
+            end--;
+        }
+
+        if (start < end) {
+            int temp = *start;
+            *start = *end;
+            *end = temp;
+            start++;
+            end--;
+        }
+
+
+    }
+
+
+    printf("你输入的数字是:");
+    for (int i = 0; i < size; ++i) {
+        printf("%d ", numbers[i]);
+    }
+    printf("\n");
+
 
 //    int len = my_strlen("ab11cdef");
 //    printf("%d\n", len);
 
     // 初始化一个Book结构体变量
-    struct Book myBook;
+/*    struct Book myBook;
 
     strcpy(myBook.title, "C Programming for Experts");
     strcpy(myBook.author, "John Doe");
@@ -43,10 +87,9 @@ int main() {
     printf("Book Information:\n");
     printf("Title: %s\n", myBook.title);
     printf("Author: %s\n", myBook.author);
-    printf("Price: $%.2f\n", myBook.price);
+    printf("Price: $%.2f\n", myBook.price);*/
 
     return 0;
-
 
 
 }
@@ -66,14 +109,14 @@ pa 是变量 a 的地址。
      */
     int a = 10;
 
-    int* pa = &a;
+    int *pa = &a;
 
     pa + 1;
 
     printf("%p\n", pa);
 
 
-    printf("%p\n", (void*)pa);
+    printf("%p\n", (void *) pa);
 }
 
 void gameStart() {/*do {
