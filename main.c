@@ -10,6 +10,10 @@ void gameStart();
 
 void pointer();
 
+void foo();
+
+void foo1();
+
 int my_strlen(char *str) {
     // 如果当前字符是结束符 '\0'，则返回0
     if (*str == '\0') {
@@ -27,7 +31,7 @@ struct Book {
 };
 
 
-int main() {
+void changeOrder() {
 
     int numbers[10] = {0};
     int size = sizeof(numbers) / sizeof(numbers[0]);
@@ -46,7 +50,7 @@ int main() {
 
     while (start < end) {
 
-        while ((start < end) && ( *start % 2 == 0)) {
+        while ((start < end) && (*start % 2 == 0)) {
             start++;
         }
 
@@ -61,16 +65,32 @@ int main() {
             start++;
             end--;
         }
-
+        for (int i = 0; i < size; ++i) {
+            printf("%d ", numbers[i]);
+        }
+        printf("\n");
 
     }
-
-
-    printf("你输入的数字是:");
-    for (int i = 0; i < size; ++i) {
-        printf("%d ", numbers[i]);
+}
+void print2(int (*p)[3], int r, int c)
+{
+    int i = 0;
+    for (i = 0; i < r; i++)
+    {
+        int j = 0;
+        for (j = 0; j < c; j++)
+        {
+            printf("%d ", *((*p + i) + j));
+        }
+        printf("\n");
     }
-    printf("\n");
+}
+int main() {
+
+    int arr[3][5] = { {1,2,3,4,5}, {2,3,4,5,6}, {3,4,5,6,7} };
+    print2(arr, 3, 5);
+
+    return 0;
 
 
 //    int len = my_strlen("ab11cdef");
@@ -92,6 +112,38 @@ int main() {
     return 0;
 
 
+}
+
+void foo1() {
+    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    int (*p)[10] = &arr;
+
+    int i = 0;
+    int sz = sizeof(arr) / sizeof(arr[0]);
+    for (i = 0; i < sz; i++)
+    {
+        printf("%d ", *(*p+i)); // P是指向数组的指针，*p指的就是这个数组，所以(*p+i)是数组的地址+偏移地址
+        // 因此*(*p+i)是获取数组元素的实际值
+    }
+}
+
+void foo() {
+    int arr1[] = {1, 2, 3, 4, 5};
+    int arr2[] = {2, 3, 4, 5, 6};
+    int arr3[] = {3, 4, 5, 6, 7};
+
+    int *parr[3] = {arr1, arr2, arr3};
+
+
+    int size = sizeof(arr1) / sizeof(arr1[0]); // 假设所有数组都有相同的大小
+
+    for (int i = 0; i < 3; i++) { // 遍历parr数组
+        for (int j = 0; j < size; j++) { // 遍历每个数组中的元素
+//            printf("%d ", parr[i][j]);
+            printf("%d ", * (parr[i]+j));
+        }
+        printf("\n"); // 打印换行，使每个数组的输出在不同的行
+    }
 }
 
 void pointer() {/**
