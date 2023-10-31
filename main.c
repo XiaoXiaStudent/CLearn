@@ -1,4 +1,5 @@
 
+#include <stdlib.h>
 #include "game.h"
 #include "string.h"
 
@@ -72,31 +73,118 @@ void changeOrder() {
 
     }
 }
-void print2(int (*p)[3], int r, int c)
-{
+
+void print2(int (*p)[3], int r, int c) {
     int i = 0;
-    for (i = 0; i < r; i++)
-    {
+    for (i = 0; i < r; i++) {
         int j = 0;
-        for (j = 0; j < c; j++)
-        {
+        for (j = 0; j < c; j++) {
             printf("%d ", *((*p + i) + j));
         }
         printf("\n");
     }
 }
+
+int compare(const void *e1, const void *e2) {
+    return *((int *) e1) - *((int *) e2);
+}
+
+
+void swap(char *a, char *b, size_t size) {
+
+    for (int i = 0; i < size; ++i) {
+
+        char temp = *b;
+        *b = *a;
+        *a = temp;
+
+        a++;
+        b++;
+
+    }
+
+}
+
+void my_qsort(void *base, int size, int width, int (*compare)(const void *, const void *)) {
+    for (int i = 0; i < size - 1; i++) {
+
+        int j = 0;
+
+        for (j = 0; j < size - 1 - i; j++) {
+
+            if (compare((char *) base + j * width, (char *) base + (j + 1) * width) > 0) {
+
+                swap((char *) base + j * width, (char *) base + (j + 1) * width, width);
+            }
+
+        }
+
+
+    }
+}
+
 int main() {
 
-    int arr[3][5] = { {1,2,3,4,5}, {2,3,4,5,6}, {3,4,5,6,7} };
-    print2(arr, 3, 5);
+//    冒泡排序
 
-    return 0;
+
+    int arr[] = {5, 1, 2, 3, 18, 3, 15, 7, 8, 9};
+
+
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+
+//    qsort(arr, size, sizeof(arr[0]), compare);
+    my_qsort(arr, size, sizeof(arr[0]), compare);
+
+
+
+
+
+//    for (int i = 0; i < size - 1; i++) {
+//
+//        int j = 0;
+//
+//        for (j = 0; j < size - 1 - i; j++) {
+//
+//            if (arr[j] > arr[j+1]) {
+//                int temp = arr[j];
+//                arr[j] = arr[j+1];
+//                arr[j+1] = temp;
+//            }
+//
+//        }
+    for (
+            int i = 0;
+            i < sizeof(arr) / sizeof(arr[0]); ++i) {
+        printf("%d", arr[i]);
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    int arr[3][5] = { {1,2,3,4,5}, {2,3,4,5,6}, {3,4,5,6,7} };
+//    print2(arr, 3, 5);
+
+
 
 
 //    int len = my_strlen("ab11cdef");
 //    printf("%d\n", len);
 
-    // 初始化一个Book结构体变量
+// 初始化一个Book结构体变量
 /*    struct Book myBook;
 
     strcpy(myBook.title, "C Programming for Experts");
@@ -109,20 +197,15 @@ int main() {
     printf("Author: %s\n", myBook.author);
     printf("Price: $%.2f\n", myBook.price);*/
 
-    return 0;
-
-
-}
 
 void foo1() {
-    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     int (*p)[10] = &arr;
 
     int i = 0;
     int sz = sizeof(arr) / sizeof(arr[0]);
-    for (i = 0; i < sz; i++)
-    {
-        printf("%d ", *(*p+i)); // P是指向数组的指针，*p指的就是这个数组，所以(*p+i)是数组的地址+偏移地址
+    for (i = 0; i < sz; i++) {
+        printf("%d ", *(*p + i)); // P是指向数组的指针，*p指的就是这个数组，所以(*p+i)是数组的地址+偏移地址
         // 因此*(*p+i)是获取数组元素的实际值
     }
 }
@@ -140,7 +223,7 @@ void foo() {
     for (int i = 0; i < 3; i++) { // 遍历parr数组
         for (int j = 0; j < size; j++) { // 遍历每个数组中的元素
 //            printf("%d ", parr[i][j]);
-            printf("%d ", * (parr[i]+j));
+            printf("%d ", *(parr[i] + j));
         }
         printf("\n"); // 打印换行，使每个数组的输出在不同的行
     }
