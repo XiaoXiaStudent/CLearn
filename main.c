@@ -25,6 +25,8 @@ void foo5();
 
 void foo6();
 
+int getInt();
+
 int my_strlen(char *str) {
     // 如果当前字符是结束符 '\0'，则返回0
     if (*str == '\0') {
@@ -146,8 +148,18 @@ struct Test* p = (struct Test*)0x100000;
 
 int main() {
 
+    char* c[] = { "ENTER", "NEW", "POINT", "FIRST" };
+    char** cp[] = { c + 3, c + 2, c + 1, c };
+    char*** cpp = cp;
 
-    int a[4] = { 1, 2, 3, 4 };
+
+    *cpp[-1];
+    cpp[-1][-1]  ;
+
+}
+
+int getInt() {
+    int a[4] = {1, 2, 3, 4 };
     int* ptr1 = (int*)(&a + 1);
     int* ptr2 = (int*)((int)a + 1);
 
@@ -155,9 +167,7 @@ int main() {
     printf("%X,%X", ptr1[-1], *ptr2);
 
 
-
     return 0;
-
 }
 
 void foo6() {// 以下是注释部分：
