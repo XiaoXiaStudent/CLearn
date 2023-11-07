@@ -27,6 +27,8 @@ void foo6();
 
 int getInt();
 
+void foo7();
+
 int my_strlen(char *str) {
     // 如果当前字符是结束符 '\0'，则返回0
     if (*str == '\0') {
@@ -135,52 +137,63 @@ void my_qsort(void *base, int size, int width, int (*compare)(const void *, cons
     }
 }
 
-struct Test
-{
+struct Test {
     int Num;
-    char* pcName;
+    char *pcName;
     short sDate;
     char cha[2];
     short sBa[4];
 };
 
-struct Test* p = (struct Test*)0x100000;
+struct Test *p = (struct Test *) 0x100000;
 
 int main() {
 
-    char* c[] = { "ENTER", "NEW", "POINT", "FIRST" };
-    char** cp[] = { c + 3, c + 2, c + 1, c };
-    char*** cpp = cp;
+    //    写一个九九乘法表
+       for (int i = 1; i <= 9; ++i) {
+              for (int j = 1; j <= i; ++j) {
+                printf("%d*%d=%d ", j, i, i * j);
+              }
+              printf("\n");
+       }
 
-
-    *cpp[-1];
-    cpp[-1][-1]  ;
 
 }
 
-int getInt() {
-    int a[4] = {1, 2, 3, 4 };
-    int* ptr1 = (int*)(&a + 1);
-    int* ptr2 = (int*)((int)a + 1);
+    void foo7() {
+        char *c[] = {"ENTER", "NEW", "POINT", "FIRST"};
+        char **cp[] = {c + 3, c + 2, c + 1, c};
+        char ***cpp = cp;
 
 
-    printf("%X,%X", ptr1[-1], *ptr2);
+        printf("%d", c);
+        printf("%d", *c);
+        printf("%d", **c);
+    }
+
+    int getInt() {
+        int a[4] = {1, 2, 3, 4};
+        int *ptr1 = (int *) (&a + 1);
+        int *ptr2 = (int *) ((int) a + 1);
 
 
-    return 0;
-}
+        printf("%X,%X", ptr1[-1], *ptr2);
 
-void foo6() {// 以下是注释部分：
+
+        return 0;
+    }
+
+    void foo6() {// 以下是注释部分：
 // 地址为0x100000。如下表达式的值分别为多少？
 // 但是，结构体Test实际的大小并小于20个字节
 // x86
 
-    printf("%p\n", p + 0x1);
-    printf("%p\n", (unsigned long)p + 0x1);
-    printf("%p\n", (unsigned int*)p + 0x1);
-}
+        printf("%p\n", p + 0x1);
+        printf("%p\n", (unsigned long) p + 0x1);
+        printf("%p\n", (unsigned int *) p + 0x1);
+    }
 
-void foo5() {//        for (int i = 0; i < size - 1; i++) {
+    void foo5() {//        for (int i = 0; i < size - 1; i++) {
 //
 //        int j = 0;
 //
@@ -197,48 +210,46 @@ void foo5() {//        for (int i = 0; i < size - 1; i++) {
 //        printf("%d", arr[i]);
 //    }
 
-}
+    }
 
-void foo4() {//    冒泡排序
-    int arr[] = {5, 1, 2, 3, 18, 3, 15, 7, 8, 9};
+    void foo4() {//    冒泡排序
+        int arr[] = {5, 1, 2, 3, 18, 3, 15, 7, 8, 9};
 
 
-    int size = sizeof(arr) / sizeof(arr[0]);
+        int size = sizeof(arr) / sizeof(arr[0]);
 
 
 //    qsort(arr, size, sizeof(arr[0]), compare);
-    my_qsort(arr, size, sizeof(arr[0]), compare);
-}
+        my_qsort(arr, size, sizeof(arr[0]), compare);
+    }
 
-void foo3() {
-    int a[3][4] = {0};
+    void foo3() {
+        int a[3][4] = {0};
 
-    printf("%d\n", sizeof(a));  //48
-    printf("%d\n", sizeof(a[0][0])); //4
-    printf("%d\n", sizeof(a[0])); //16
-
-
-    printf("%d\n", sizeof(a[0] + 1));//4/8
+        printf("%d\n", sizeof(a));  //48
+        printf("%d\n", sizeof(a[0][0])); //4
+        printf("%d\n", sizeof(a[0])); //16
 
 
-    printf("%d\n", sizeof(*(a[0] + 1)));//4
-    printf("%d\n", sizeof(a + 1));//4/8
-    printf("%d\n", sizeof(*(a + 1)));//16
-    printf("%d\n", sizeof(&a[0] + 1));//4/8
-    printf("%d\n", sizeof(*(&a[0] + 1)));//4
-    printf("%d\n", sizeof(*a));
-    printf("%d\n", sizeof(a[3]));
-}
-
-void foo2() {
-    char *p = "abcedf";
+        printf("%d\n", sizeof(a[0] + 1));//4/8
 
 
-    printf("%d\n", strlen(&p));
-    printf("%d\n", strlen(&p + 1));
-}
+        printf("%d\n", sizeof(*(a[0] + 1)));//4
+        printf("%d\n", sizeof(a + 1));//4/8
+        printf("%d\n", sizeof(*(a + 1)));//16
+        printf("%d\n", sizeof(&a[0] + 1));//4/8
+        printf("%d\n", sizeof(*(&a[0] + 1)));//4
+        printf("%d\n", sizeof(*a));
+        printf("%d\n", sizeof(a[3]));
+    }
+
+    void foo2() {
+        char *p = "abcedf";
 
 
+        printf("%d\n", strlen(&p));
+        printf("%d\n", strlen(&p + 1));
+    }
 
 
 
