@@ -162,6 +162,10 @@ void foo11();
 
 void mystrncat(char arr1[6], char arr2[5], int i);
 
+int getInt1();
+
+char *my_strstr(char email[21], char substr[12]);
+
 void myStrcpy1(char *arr2, const char *arr1) {
 
     while (*arr1 != '\0') {
@@ -207,6 +211,44 @@ int my_strcmp(char *arr1, char *arr2) {
 int main() {
 
 
+    char email[] = "zpwb@biteituyake.com";
+    char substr[] = "biteituyake";
+    char *ret = my_strstr(email, substr);
+    if (ret == NULL) {
+        printf("×Ó´®²»´æÔÚ\n");
+    } else {
+        printf("%s\n", ret);
+    }
+    return 0;
+
+
+}
+
+char *my_strstr(char email[21], char substr[12]) {
+
+        char *p = email;
+        char *q = substr;
+
+        while (*p != '\0') {
+
+            char *start = p;
+            while (*p == *q && *q != '\0') {
+                p++;
+                q++;
+            }
+
+            if (*q == '\0') {
+                return start;
+            }
+
+            p = start + 1;
+            q = substr;
+        }
+
+        return NULL;
+}
+
+int getInt1() {
     char arr1[] = "abcl2";
     char arr2[] = "abcl";
 
@@ -216,8 +258,6 @@ int main() {
 
 
     return 0;
-
-
 }
 
 void mystrncat(char arr1[6], char arr2[5], int i) {
