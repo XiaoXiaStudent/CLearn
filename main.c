@@ -29,6 +29,8 @@ int getInt();
 
 void foo7();
 
+void foo8();
+
 int my_strlen(char *str) {
     // 如果当前字符是结束符 '\0'，则返回0
     if (*str == '\0') {
@@ -147,53 +149,180 @@ struct Test {
 
 struct Test *p = (struct Test *) 0x100000;
 
-int main() {
+// 函数声明
+int strLength(const char *str);
 
-    //    写一个九九乘法表
-       for (int i = 1; i <= 9; ++i) {
-              for (int j = 1; j <= i; ++j) {
-                printf("%d*%d=%d ", j, i, i * j);
-              }
-              printf("\n");
-       }
+void foo9();
+
+void foo10();
+
+
+void foo11();
+
+
+void mystrncat(char arr1[6], char arr2[5], int i);
+
+void myStrcpy1(char *arr2, const char *arr1) {
+
+    while (*arr1 != '\0') {
+        *arr2 = *arr1;
+        arr1++;
+        arr2++;
+    }
+    *arr2 = '\0';
 
 
 }
 
-    void foo7() {
-        char *c[] = {"ENTER", "NEW", "POINT", "FIRST"};
-        char **cp[] = {c + 3, c + 2, c + 1, c};
-        char ***cpp = cp;
+void mystrcat(char *target, const char *sources) {
 
-
-        printf("%d", c);
-        printf("%d", *c);
-        printf("%d", **c);
+    while (*target != '\0') {
+        target++;
     }
 
-    int getInt() {
-        int a[4] = {1, 2, 3, 4};
-        int *ptr1 = (int *) (&a + 1);
-        int *ptr2 = (int *) ((int) a + 1);
-
-
-        printf("%X,%X", ptr1[-1], *ptr2);
-
-
-        return 0;
+    while (*sources != '\0') {
+        *target = *sources;
+        target++;
+        sources++;
     }
 
-    void foo6() {// 以下是注释部分：
+    *target = '\0';
+
+}
+
+int my_strcmp(char *arr1, char *arr2) {
+
+    while (*arr1 == *arr2) {
+        if (*arr1 == '\0') {
+            return 0;
+        }
+        arr1++;
+        arr2++;
+    }
+
+    return *arr1 - *arr2;
+
+}
+
+int main() {
+
+
+    char arr1[] = "abcl2";
+    char arr2[] = "abcl";
+
+    mystrncat(arr1, arr2, 3);
+
+    printf("%s\n", arr1);
+
+
+    return 0;
+
+
+}
+
+void mystrncat(char arr1[6], char arr2[5], int i) {
+
+    while (*arr1 != '\0') {
+        arr1++;
+    }
+
+    while (i > 0) {
+        *arr1 = *arr2;
+        arr1++;
+        arr2++;
+        i--;
+    }
+
+    *arr1 = '\0';
+
+}
+
+
+void foo11() {
+    char arr1[] = "abcdef";
+    char arr2[20] = {"hello3333"};
+
+    mystrcat(arr2, arr1); // helloabcdef
+
+    printf("%s\n", arr2); // abcdef
+
+
+}
+
+
+void foo10() {
+    char name[20] = {0};
+
+    strcpy(name, "zhangsan");
+
+
+    printf("%s\n", name);
+}
+
+void foo9() {
+    const char *myString = "Hello, World!";
+    const char arr[] = "Hello, World!";
+
+    int length = strLength(arr);
+    printf("The length of the string is: %d\n", length);
+}
+
+// 函数定义
+int strLength(const char *str) {
+    const char *strEnd = str; // 创建一个指向字符串开始的指针
+
+    // 移动指针直到字符串的末尾
+    while (*strEnd) {
+        strEnd++;
+    }
+
+    // 返回末尾指针和开始指针的差，即字符串的长度
+    return strEnd - str;
+}
+
+void foo8() {//    写一个九九乘法表
+    for (int i = 1; i <= 9; ++i) {
+        for (int j = 1; j <= i; ++j) {
+            printf("%d*%d=%d ", j, i, i * j);
+        }
+        printf("\n");
+    }
+}
+
+void foo7() {
+    char *c[] = {"ENTER", "NEW", "POINT", "FIRST"};
+    char **cp[] = {c + 3, c + 2, c + 1, c};
+    char ***cpp = cp;
+
+
+    printf("%d", c);
+    printf("%d", *c);
+    printf("%d", **c);
+}
+
+int getInt() {
+    int a[4] = {1, 2, 3, 4};
+    int *ptr1 = (int *) (&a + 1);
+    int *ptr2 = (int *) ((int) a + 1);
+
+
+    printf("%X,%X", ptr1[-1], *ptr2);
+
+
+    return 0;
+}
+
+void foo6() {// 以下是注释部分：
 // 地址为0x100000。如下表达式的值分别为多少？
 // 但是，结构体Test实际的大小并小于20个字节
 // x86
 
-        printf("%p\n", p + 0x1);
-        printf("%p\n", (unsigned long) p + 0x1);
-        printf("%p\n", (unsigned int *) p + 0x1);
-    }
+    printf("%p\n", p + 0x1);
+    printf("%p\n", (unsigned long) p + 0x1);
+    printf("%p\n", (unsigned int *) p + 0x1);
+}
 
-    void foo5() {//        for (int i = 0; i < size - 1; i++) {
+void foo5() {//        for (int i = 0; i < size - 1; i++) {
 //
 //        int j = 0;
 //
@@ -210,46 +339,46 @@ int main() {
 //        printf("%d", arr[i]);
 //    }
 
-    }
+}
 
-    void foo4() {//    冒泡排序
-        int arr[] = {5, 1, 2, 3, 18, 3, 15, 7, 8, 9};
+void foo4() {//    冒泡排序
+    int arr[] = {5, 1, 2, 3, 18, 3, 15, 7, 8, 9};
 
 
-        int size = sizeof(arr) / sizeof(arr[0]);
+    int size = sizeof(arr) / sizeof(arr[0]);
 
 
 //    qsort(arr, size, sizeof(arr[0]), compare);
-        my_qsort(arr, size, sizeof(arr[0]), compare);
-    }
+    my_qsort(arr, size, sizeof(arr[0]), compare);
+}
 
-    void foo3() {
-        int a[3][4] = {0};
+void foo3() {
+    int a[3][4] = {0};
 
-        printf("%d\n", sizeof(a));  //48
-        printf("%d\n", sizeof(a[0][0])); //4
-        printf("%d\n", sizeof(a[0])); //16
-
-
-        printf("%d\n", sizeof(a[0] + 1));//4/8
+    printf("%d\n", sizeof(a));  //48
+    printf("%d\n", sizeof(a[0][0])); //4
+    printf("%d\n", sizeof(a[0])); //16
 
 
-        printf("%d\n", sizeof(*(a[0] + 1)));//4
-        printf("%d\n", sizeof(a + 1));//4/8
-        printf("%d\n", sizeof(*(a + 1)));//16
-        printf("%d\n", sizeof(&a[0] + 1));//4/8
-        printf("%d\n", sizeof(*(&a[0] + 1)));//4
-        printf("%d\n", sizeof(*a));
-        printf("%d\n", sizeof(a[3]));
-    }
-
-    void foo2() {
-        char *p = "abcedf";
+    printf("%d\n", sizeof(a[0] + 1));//4/8
 
 
-        printf("%d\n", strlen(&p));
-        printf("%d\n", strlen(&p + 1));
-    }
+    printf("%d\n", sizeof(*(a[0] + 1)));//4
+    printf("%d\n", sizeof(a + 1));//4/8
+    printf("%d\n", sizeof(*(a + 1)));//16
+    printf("%d\n", sizeof(&a[0] + 1));//4/8
+    printf("%d\n", sizeof(*(&a[0] + 1)));//4
+    printf("%d\n", sizeof(*a));
+    printf("%d\n", sizeof(a[3]));
+}
+
+void foo2() {
+    char *p = "abcedf";
+
+
+    printf("%d\n", strlen(&p));
+    printf("%d\n", strlen(&p + 1));
+}
 
 
 
