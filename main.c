@@ -166,6 +166,10 @@ int getInt1();
 
 char *my_strstr(char email[21], char substr[12]);
 
+void foo12();
+
+void foo13();
+
 void myStrcpy1(char *arr2, const char *arr1) {
 
     while (*arr1 != '\0') {
@@ -207,10 +211,57 @@ int my_strcmp(char *arr1, char *arr2) {
     return *arr1 - *arr2;
 
 }
+void *my_memmove(void *dest, const void *src, size_t count) {
+    char *dest_char = (char *)dest;
+    const char *src_char = (const char *)src;
 
+    // 如果目标内存块在源内存块之后，需要从后向前复制
+    if (dest_char > src_char && dest_char < src_char + count) {
+        for (size_t i = count; i != 0; i--) {
+            dest_char[i-1] = src_char[i-1];
+        }
+    } else {
+        // 如果没有重叠，或者目标内存块在源内存块之前，从前向后复制即可
+        for (size_t i = 0; i < count; i++) {
+            dest_char[i] = src_char[i];
+        }
+    }
+
+    return dest;
+}
 int main() {
 
 
+    char data[] = "Hello, World!";
+    // 故意制造重叠，以演示 memmove 的必要性
+    my_memmove(data + 7, data, 6);
+
+    printf("%s\n", data); // 输出 "Hello, Hello!"
+
+    return 0;
+
+
+    return 0;
+
+
+}
+
+void foo13() {
+    int source[] = {1, 2, 3, 4, 5};       // 源数组
+    int destination[5];                   // 目标数组，用于存放拷贝的数据
+
+    // 使用 memcpy 进行内存拷贝
+// 参数：目标内存地址，源内存地址，要复制的字节数
+    memcpy(destination, source, sizeof(source));
+
+    // 打印复制后的目标数组
+    for (int i = 0; i < 5; i++) {
+        printf("%d ", destination[i]);
+    }
+    printf("\n");
+}
+
+void foo12() {
     char email[] = "zpwb@biteituyake.com";
     char substr[] = "biteituyake";
     char *ret = my_strstr(email, substr);
@@ -219,9 +270,6 @@ int main() {
     } else {
         printf("%s\n", ret);
     }
-    return 0;
-
-
 }
 
 char *my_strstr(char email[21], char substr[12]) {
@@ -238,7 +286,16 @@ char *my_strstr(char email[21], char substr[12]) {
             }
 
             if (*q == '\0') {
-                return start;
+                // 找到子串后，复制子串到新的内存位置
+                size_t length = q - substr;
+                char *match = (char *)malloc(length + 1);
+                if (match) {
+                    for (size_t i = 0; i < length; i++) {
+                        match[i] = substr[i];
+                    }
+                    match[length] = '\0';
+                }
+                return match; // 返回新的字符串
             }
 
             p = start + 1;
