@@ -170,6 +170,8 @@ void foo12();
 
 void foo13();
 
+void foo14();
+
 void myStrcpy1(char *arr2, const char *arr1) {
 
     while (*arr1 != '\0') {
@@ -229,20 +231,14 @@ void *my_memmove(void *dest, const void *src, size_t count) {
 
     return dest;
 }
-int main() {
 
 
+void foo14() {
     char data[] = "Hello, World!";
     // 故意制造重叠，以演示 memmove 的必要性
     my_memmove(data + 7, data, 6);
 
     printf("%s\n", data); // 输出 "Hello, Hello!"
-
-    return 0;
-
-
-    return 0;
-
 
 }
 
