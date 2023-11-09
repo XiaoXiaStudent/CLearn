@@ -102,47 +102,47 @@ void sortContacts(){
         }
     }
 }
-
-// Main function
-int main() {
-    int choice;
-    char name[50];
-    do {
-        printf("1. Add Contact\n");
-        printf("2. Delete Contact\n");
-        printf("3. Edit Contact\n");
-        printf("4. Display Contacts\n");
-        printf("5. Exit\n");
-        printf("6. Sort Contacts\n");
-        printf("Enter your choice: ");
-        scanf("%d", &choice);
-        switch (choice) {
-            case 1:
-                addContact();
-                break;
-            case 2:
-                printf("Enter name to delete: ");
-                scanf("%s", name);
-                deleteContact(name);
-                break;
-            case 3:
-                printf("Enter name to edit: ");
-                scanf("%s", name);
-                editContact(name);
-                break;
-            case 4:
-                displayContacts();
-                break;
-            case 5:
-                printf("Exiting the program.\n");
-                break;
-            case 6:
-                sortContacts();
-                break;
-            default:
-                printf("Invalid choice!\n");
-        }
-    } while (choice != 5);
-    return 0;
-}
+//
+//// Main function
+//int main() {
+//    int choice;
+//    char name[50];
+//    do {
+//        printf("1. Add Contact\n");
+//        printf("2. Delete Contact\n");
+//        printf("3. Edit Contact\n");
+//        printf("4. Display Contacts\n");
+//        printf("5. Exit\n");
+//        printf("6. Sort Contacts\n");
+//        printf("Enter your choice: ");
+//        scanf("%d", &choice);
+//        switch (choice) {
+//            case 1:
+//                addContact();
+//                break;
+//            case 2:
+//                printf("Enter name to delete: ");
+//                scanf("%s", name);
+//                deleteContact(name);
+//                break;
+//            case 3:
+//                printf("Enter name to edit: ");
+//                scanf("%s", name);
+//                editContact(name);
+//                break;
+//            case 4:
+//                displayContacts();
+//                break;
+//            case 5:
+//                printf("Exiting the program.\n");
+//                break;
+//            case 6:
+//                sortContacts();
+//                break;
+//            default:
+//                printf("Invalid choice!\n");
+//        }
+//    } while (choice != 5);
+//    return 0;
+//}
 

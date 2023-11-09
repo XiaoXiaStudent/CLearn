@@ -1,0 +1,46 @@
+//
+// Created by lx011 on 2023/11/9.
+//
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+enum day {
+    MON, TUE, WED, THU, FRI, SAT, SUN
+};
+
+
+void foo1111() {
+    enum day d = MON;
+    enum day t = TUE;
+
+    printf("%d\n", d);
+    printf("%d\n", t);
+
+    printf("Hello, World!\n");
+}
+int compare_int(const void *e1, const void *e2) {
+    int *p1 = (int *) e1;
+    int *p2 = (int *) e2;
+
+    return *p1 - *p2;
+
+}
+
+int main(int argc, char *argv[]) {
+
+//    定义一个没有顺序的数组，然后使用qsort函数排序
+    int a[] = {1, 3, 2, 5, 4};
+    int len = sizeof(a) / sizeof(a[0]);
+
+    qsort(a, len, sizeof(int), compare_int);
+
+    for (int i = 0; i < sizeof(a) / sizeof(a[0]); ++i) {
+        printf("%d\n", a[i]);
+    }
+
+    return 0;
+}
+
+
