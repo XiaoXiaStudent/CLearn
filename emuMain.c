@@ -11,6 +11,8 @@ enum day {
 };
 
 
+void foozz();
+
 void foo1111() {
     enum day d = MON;
     enum day t = TUE;
@@ -20,6 +22,7 @@ void foo1111() {
 
     printf("Hello, World!\n");
 }
+
 int compare_int(const void *e1, const void *e2) {
     int *p1 = (int *) e1;
     int *p2 = (int *) e2;
@@ -27,10 +30,38 @@ int compare_int(const void *e1, const void *e2) {
     return *p1 - *p2;
 
 }
+//
+//int main(int argc, char *argv[]) {
+//
+//    //写一个 realloc的示例
+//    int *p = (int *) malloc(5 * sizeof(int));
+//
+//    int * ptr = realloc(p, 10 * sizeof(int));
+//
+//    if (ptr) {
+//        p = ptr;
+//    } else {
+//        free(p);
+//        p = NULL;
+//    }
+//
+//    if (p == NULL) {
+//        printf("%s", strerror(errno));
+//        return 1;
+//    }
+//    for (int i = 0; i < 10; ++i) {
+//        p[i] = i;
+//    }
+//    for (int i = 0; i < 10; ++i) {
+//        printf("%d\n", p[i]);
+//    }
+//
+//
+//
+//    return 0;
+//}
 
-int main(int argc, char *argv[]) {
-
-//    定义一个没有顺序的数组，然后使用qsort函数排序
+void foozz() {//    定义一个没有顺序的数组，然后使用qsort函数排序
     int a[] = {1, 3, 2, 5, 4};
     int len = sizeof(a) / sizeof(a[0]);
 
@@ -40,7 +71,32 @@ int main(int argc, char *argv[]) {
         printf("%d\n", a[i]);
     }
 
-    return 0;
+
+    int arr[10] = {0};
+/*
+
+    //动态内存开辟
+//    int *p = (int *) malloc(INT_MAX*sizeof(int));
+
+// 开辟10个整形空间
+    int *p = (int *) calloc(10, 4);
+
+    if (p == NULL) {
+        printf("%s", strerror(errno));
+        return 1;
+    }
+//    使用
+    for (int i = 0; i < 10; ++i) {
+//       * (p+i) = i;
+        p[i] = i;
+    }
+
+    for (int i = 0; i < 10; ++i) {
+        printf("%d\n", *p+i );
+    }
+*/
+
+
 }
 
 

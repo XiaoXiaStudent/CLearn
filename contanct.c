@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <malloc.h>
 
 // Define a struct for person information
 typedef struct {
@@ -15,27 +16,72 @@ typedef struct {
 } Person;
 
 // Declare an array to store information for 100 people
-Person addressBook[100];
+Person *addressBook;
 int count = 0; // Counter for the number of people in the address book
+int capacity = 0; // Capacity of the address book
+
+int init() {
+    addressBook = (Person *) malloc(2 * sizeof(Person));
+
+    if (addressBook == NULL) {
+        printf("%s", strerror(errno));
+        return 1;
+    }
+    capacity = 2;
+
+    return 0;
+}
 
 // Function to add a contact
+//静态版本
+//void addContact() {
+//    if (count < 100) {
+//        printf("Enter name: ");
+//        scanf("%s", addressBook[count].name);
+//        printf("Enter age: ");
+//        scanf("%d", &addressBook[count].age);
+//        printf("Enter gender (M/F): ");
+//        scanf(" %c", &addressBook[count].gender);
+//        printf("Enter phone: ");
+//        scanf("%s", addressBook[count].phone);
+//        printf("Enter address: ");
+//        scanf("%s", addressBook[count].address);
+//        count++;
+//        printf("Contact added successfully!\n");
+//    } else {
+//        printf("Address book is full!\n");
+//    }
+//}
+//动态版本
 void addContact() {
-    if (count < 100) {
-        printf("Enter name: ");
-        scanf("%s", addressBook[count].name);
-        printf("Enter age: ");
-        scanf("%d", &addressBook[count].age);
-        printf("Enter gender (M/F): ");
-        scanf(" %c", &addressBook[count].gender);
-        printf("Enter phone: ");
-        scanf("%s", addressBook[count].phone);
-        printf("Enter address: ");
-        scanf("%s", addressBook[count].address);
-        count++;
-        printf("Contact added successfully!\n");
-    } else {
-        printf("Address book is full!\n");
+
+//    增容
+    if (count == capacity) {
+        Person *person = (Person *) realloc(addressBook, 2 * sizeof(Person));
+
+        if (person) {
+            addressBook = person;
+            capacity += 2;
+            printf("Contact added successfully!\n");
+        } else {
+            free(addressBook);
+            addressBook = NULL;
+        }
+
     }
+    printf("Enter name: ");
+    scanf("%s", addressBook[count].name);
+//    printf("Enter age: ");
+//    scanf("%d", &addressBook[count].age);
+//    printf("Enter gender (M/F): ");
+//    scanf(" %c", &addressBook[count].gender);
+//    printf("Enter phone: ");
+//    scanf("%s", addressBook[count].phone);
+//    printf("Enter address: ");
+//    scanf("%s", addressBook[count].address);
+    count++;
+
+
 }
 
 // Function to find a contact by name
@@ -91,7 +137,7 @@ void displayContacts() {
     }
 }
 
-void sortContacts(){
+void sortContacts() {
     for (int i = 0; i < count; i++) {
         for (int j = 0; j < count - i - 1; j++) {
             if (strcmp(addressBook[j].name, addressBook[j + 1].name) > 0) {
@@ -101,48 +147,54 @@ void sortContacts(){
             }
         }
     }
+
+    for (int i = 0; i < count; ++i) {
+        printf("%s\n", addressBook[i].name);
+    }
 }
-//
-//// Main function
-//int main() {
-//    int choice;
-//    char name[50];
-//    do {
-//        printf("1. Add Contact\n");
-//        printf("2. Delete Contact\n");
-//        printf("3. Edit Contact\n");
-//        printf("4. Display Contacts\n");
-//        printf("5. Exit\n");
-//        printf("6. Sort Contacts\n");
-//        printf("Enter your choice: ");
-//        scanf("%d", &choice);
-//        switch (choice) {
-//            case 1:
-//                addContact();
-//                break;
-//            case 2:
-//                printf("Enter name to delete: ");
-//                scanf("%s", name);
-//                deleteContact(name);
-//                break;
-//            case 3:
-//                printf("Enter name to edit: ");
-//                scanf("%s", name);
-//                editContact(name);
-//                break;
-//            case 4:
-//                displayContacts();
-//                break;
-//            case 5:
-//                printf("Exiting the program.\n");
-//                break;
-//            case 6:
-//                sortContacts();
-//                break;
-//            default:
-//                printf("Invalid choice!\n");
-//        }
-//    } while (choice != 5);
-//    return 0;
-//}
+
+// Main function
+int main() {
+    int choice;
+    char name[50];
+
+    init();
+    do {
+        printf("1. Add Contact\n");
+        printf("2. Delete Contact\n");
+        printf("3. Edit Contact\n");
+        printf("4. Display Contacts\n");
+        printf("5. Exit\n");
+        printf("6. Sort Contacts\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        switch (choice) {
+            case 1:
+                addContact();
+                break;
+            case 2:
+                printf("Enter name to delete: ");
+                scanf("%s", name);
+                deleteContact(name);
+                break;
+            case 3:
+                printf("Enter name to edit: ");
+                scanf("%s", name);
+                editContact(name);
+                break;
+            case 4:
+                displayContacts();
+                break;
+            case 5:
+                printf("Exiting the program.\n");
+                break;
+            case 6:
+                sortContacts();
+                break;
+            default:
+                printf("Invalid choice!\n");
+        }
+    } while (choice != 5);
+    return 0;
+}
 
