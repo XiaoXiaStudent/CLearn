@@ -55,22 +55,23 @@ int init() {
 //动态版本
 void addContact() {
 
-//    增容
+    // 增容
     if (count == capacity) {
-        Person *person = (Person *) realloc(addressBook, 2 * sizeof(Person));
+        Person *newAddressBook = (Person *) realloc(addressBook, (capacity + 2) * sizeof(Person));
 
-        if (person) {
-            addressBook = person;
+        if (newAddressBook) {
+            addressBook = newAddressBook;
             capacity += 2;
-            printf("Contact added successfully!\n");
         } else {
-            free(addressBook);
-            addressBook = NULL;
+            // 输出错误信息，并且考虑退出程序或者其他错误处理逻辑
+            printf("Failed to expand address book: %s\n", strerror(errno));
+            // 注意，这里我们不释放 addressBook，因为 realloc 已经保留了原有内存
+            return;
         }
-
     }
+    // 读取新联系人信息
     printf("Enter name: ");
-    scanf("%s", addressBook[count].name);
+    scanf("%49s", addressBook[count].name); // 使用 %49s 以避免缓冲区溢出
 //    printf("Enter age: ");
 //    scanf("%d", &addressBook[count].age);
 //    printf("Enter gender (M/F): ");
@@ -81,7 +82,7 @@ void addContact() {
 //    scanf("%s", addressBook[count].address);
     count++;
 
-
+    printf("Contact added successfully!\n");
 }
 
 // Function to find a contact by name
@@ -136,7 +137,12 @@ void displayContacts() {
                addressBook[i].phone, addressBook[i].address);
     }
 }
-
+void freeAddressBook() {
+    free(addressBook);
+    addressBook = NULL;
+    capacity = 0;
+    count = 0;
+}
 void sortContacts() {
     for (int i = 0; i < count; i++) {
         for (int j = 0; j < count - i - 1; j++) {
@@ -154,7 +160,7 @@ void sortContacts() {
 }
 
 // Main function
-int main() {
+int main12() {
     int choice;
     char name[50];
 
@@ -187,6 +193,7 @@ int main() {
                 break;
             case 5:
                 printf("Exiting the program.\n");
+                freeAddressBook();
                 break;
             case 6:
                 sortContacts();
